@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-
 import "./ProposalRow.css";
 
 const withoutEventDefault = (callback) =>
@@ -9,7 +8,7 @@ const withoutEventDefault = (callback) =>
         callback();
     };
 
-const ProposalRow = ({ proposal, onStatusUpdate }) => {
+const ProposalRow = ({ proposal, onStatusUpdate }) => {    
     const { id, title, status } = proposal;
     return (
         <div data-testid={`proposal-id-${id}`} className={classNames("ProposalRow", "ProposalRow--accepted")}>
@@ -19,12 +18,15 @@ const ProposalRow = ({ proposal, onStatusUpdate }) => {
             </div>
             <div className="ProposalsRow__speaker"/>
             <div className="ProposalsRow__category">
-                category: {}
+                category: {proposal?.category}
             </div>
             <div className="ProposalsRow__status">
                 status: {status}
             </div>
-            <button disabled className="ProposalsRow__accept_button_placeholder">
+            <button 
+                className="ProposalsRow__accept_button_placeholder"
+                onClick={withoutEventDefault(() => onStatusUpdate(id, "accepted"))}
+                >
                 Accept
             </button>
             <button

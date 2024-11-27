@@ -1,26 +1,22 @@
 import React from "react";
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-
+import { BrowserRouter, Navigate, Route, Routes, useParams } from "react-router-dom";
 import "./App.css";
 import { ProposalDetailsPage, ProposalListPage } from "./proposals";
+
+const ProposalDetailsPageWrapper = () => {
+    const { proposalId } = useParams(); // Hook para obtener el parámetro dinámico
+    return <ProposalDetailsPage talkId={proposalId} />;
+};
 
 const App = () => (
     <BrowserRouter>
         <div className="App">
             <main className="App_content">
-                <Switch>
-                    <Route path="/proposals/:proposalId">
-                        {({ match }) => (
-                            <ProposalDetailsPage talkId={match.params.proposalId}/>
-                        )}
-                    </Route>
-                    <Route path="/proposals">
-                        {() => (
-                            <ProposalListPage/>
-                        )}
-                    </Route>
-                    <Redirect to="/proposals"/>
-                </Switch>
+                <Routes>
+                    <Route path="/proposals/:proposalId" element={<ProposalDetailsPageWrapper />} />
+                    <Route path="/proposals" element={<ProposalListPage />} />    
+                    <Route path="*" element={<Navigate to="/proposals" replace />} />
+                </Routes>
             </main>
         </div>
     </BrowserRouter>

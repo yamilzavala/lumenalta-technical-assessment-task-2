@@ -65,7 +65,8 @@
     color: #e2e1e0;
 
     border: 0;
-    background-color: #f3f3f3;
+    background-color: #f3f3f3;  
+    cursor: pointer;
 }
 
 .ProposalsRow__accept_button,
@@ -79,15 +80,18 @@
 
     text-align: center;
 
-    border: 0;
+    border: 0;    
+    cursor: pointer;
 }
 
 .ProposalsRow__accept_button {
     background-color: #36dd84;
+    cursor: pointer;
 }
 
 .ProposalsRow__reject_button {
     background-color: #e5958e;
+    cursor: pointer;
 }
 
 .ProposalsRow__accept_button:active,

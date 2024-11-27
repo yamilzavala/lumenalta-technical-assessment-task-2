@@ -5,7 +5,6 @@ import DetailsSection from "../DetailsSection";
 import "./ProposalDetails.css";
 
 const ProposalDetails = ({ talk }) => {
-    const { speaker, description } = talk;
     return (
         <div data-testid="proposal-details" className="ProposalDetails">
             <DetailsSection
@@ -13,19 +12,21 @@ const ProposalDetails = ({ talk }) => {
                 name="speaker"
             >
                 <span className="ProposalDetails__speaker__value">
-                    {speaker}
+                    {talk?.speaker}                    
                 </span>
             </DetailsSection>
             <DetailsSection
                 className="ProposalDetails__category"
                 name="category"
-            />
+            >
+                {talk?.category}  
+            </DetailsSection>
             <DetailsSection
                 className="ProposalDetails__description"
                 name="description"
             >
                 <div className="ProposalDetails__description__value">
-                    {description}
+                    {talk?.description}
                 </div>
             </DetailsSection>
         </div>

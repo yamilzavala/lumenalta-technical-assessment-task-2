@@ -12,12 +12,25 @@ import "./ProposalDetailsPage.css";
 
 export const ProposalDetailsPage = ({ talkId }) => {
     const [isNotFound, setIsNotFound] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [talk, setTalk] = useState()
 
     useEffect(() => {
-        getTalk(talkId).then(talk =>
-            setTalk(talk)
-        );
+        const fetchTalk = async () => {
+            try {
+                setIsLoading(true)
+                const talk = await getTalk(talkId);
+                if(!talk) {
+                    setIsNotFound(true)
+                }
+                setTalk(talk)
+            } catch (error) {
+                console.error('Error: ', error?.message)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetchTalk()
     }, [])
 
     if (isNotFound) {
@@ -27,7 +40,7 @@ export const ProposalDetailsPage = ({ talkId }) => {
     return (
         <Page
             className="ProposalDetailsPage"
-            title={!talk ? "…" : "title"}
+            title={!talk ? "…" : talk?.title}
         >
             <div className="ProposalDetailsPage__content">
                 <div>
@@ -38,8 +51,8 @@ export const ProposalDetailsPage = ({ talkId }) => {
                         back to Call for Papers
                     </Link>
                 </div>
-                <Loading/>
-                <ProposalDetails talk={{}}/>
+                {isLoading && <Loading/>}
+                <ProposalDetails talk={talk}/>
             </div>
         </Page>
     );
